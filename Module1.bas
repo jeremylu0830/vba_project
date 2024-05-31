@@ -7,4 +7,6 @@ Sub test2()
     Dim move As New MoveForm
     move.Show
     
+    Dim tset3
+    
 End Sub
