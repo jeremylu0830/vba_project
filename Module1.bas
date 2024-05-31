@@ -8,5 +8,6 @@ Sub test2()
     move.Show
     
     Dim tset3
+    Dim data
     
 End Sub
