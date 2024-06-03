@@ -13,35 +13,14 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Private Sub ComboBox1_Change()
-    
-End Sub
-
-Private Sub ComboBox1_Click()
-
-End Sub
-
 Private Sub CommandButton1_Click()
+    'Financial.TextBox1.Clear
+    'Financial.TextBox3.Clear
+    'Financial.TextBox4.Clear
     Financial.TextBox3.Value = WorksheetFunction.SumIf(Sheet4.[a:a], Financial.ComboBox1.Text, Sheet4.[c:c])
+    Financial.TextBox1.Value = WorksheetFunction.SumIf(Sheet4.[a:a], Financial.ComboBox1.Text, Sheet4.[d:d])
+    Financial.TextBox4.Value = Financial.TextBox3.Value - Financial.TextBox1.Value
 End Sub
-
-Private Sub ListBox1_Click()
-
-End Sub
-
-Private Sub TextBox1_Change()
-
-End Sub
-
-Private Sub TextBox3_Change()
-    
-End Sub
-
-Private Sub UserForm_Click()
-   
-    
-End Sub
-
 Private Sub UserForm_Initialize()
     Financial.ComboBox1.Clear
     Columns("A:A").AdvancedFilter Action:=xlFilterCopy, CopyToRange:=Range("L1"), Unique:=True
@@ -49,4 +28,5 @@ Private Sub UserForm_Initialize()
     For i = 2 To myend
         Financial.ComboBox1.AddItem Sheet4.Cells(i, "l").Value
     Next
+    Columns("l:l").Clear
 End Sub
