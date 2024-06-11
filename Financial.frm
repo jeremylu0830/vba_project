@@ -1,10 +1,10 @@
 VERSION 5.00
 Begin {C62A69F0-16DC-11CE-9E98-00AA00574A4F} Financial 
    Caption         =   "Financial"
-   ClientHeight    =   5660
-   ClientLeft      =   110
-   ClientTop       =   460
-   ClientWidth     =   10550
+   ClientHeight    =   5664
+   ClientLeft      =   108
+   ClientTop       =   456
+   ClientWidth     =   10548
    OleObjectBlob   =   "Financial.frx":0000
    StartUpPosition =   1  '©ÒÄÝµøµ¡¤¤¥¡
 End
@@ -13,6 +13,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+
 
 Private Sub ComboBox1_Change()
 
@@ -53,7 +54,7 @@ Private Sub CommandButton2_Click()
     Set dataRange = st.Range("I1:K2")
     
     ' create chart
-    Set chartObj = st.ChartObjects.Add(Left:=100, Width:=375, Top:=50, Height:=225)
+    Set chartObj = st.ChartObjects.Add(Left:=100, width:=375, Top:=50, height:=225)
     chartObj.Chart.SetSourceData Source:=dataRange
     chartObj.Chart.ChartType = xlColumnClustered
     
