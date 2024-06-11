@@ -1,12 +1,12 @@
 VERSION 5.00
 Begin {C62A69F0-16DC-11CE-9E98-00AA00574A4F} SHOP 
    Caption         =   "ORDERPAGE"
-   ClientHeight    =   5698
-   ClientLeft      =   91
-   ClientTop       =   406
-   ClientWidth     =   9058.001
+   ClientHeight    =   5929
+   ClientLeft      =   96
+   ClientTop       =   408
+   ClientWidth     =   9072
    OleObjectBlob   =   "SHOP.frx":0000
-   StartUpPosition =   1  'CenterOwner
+   StartUpPosition =   1  '©ÒÄÝµøµ¡¤¤¥¡
 End
 Attribute VB_Name = "SHOP"
 Attribute VB_GlobalNameSpace = False
@@ -14,22 +14,43 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 
+Private Sub CompleteButton_Click()
+    SHOP.Hide
+End Sub
+
+Private Sub DISCARD_Click()
+    'delete all things in the cart
+    UserForm_Initialize
+
+End Sub
 
 Private Sub OrderButton_Click()
     Set ws = Worksheets("Goods")
     Set ws2 = Worksheets("Finance")
-    Total = 0
+    
+    total = 0
     For i = 1 To 36 ' the type of all products
         tempstr = ws.Cells(i, "b")
-        ws.Cells(i, "e") = CInt(Right(tempstr, Len(tempstr) - 1)) * ws.Cells(i, "d")
-        
+            
+        ws.Cells(i, "e") = tempstr * ws.Cells(i, "d")
+            
     Next
-    ws2.Cells(3, "a") = WorksheetFunction.Sum(ws.Range("E1:E36"))
-    ws2.Cells(2, "a") = ws2.Cells(2, "a") - ws2.Cells(3, "a")
-    
-    
-    UserForm_Initialize
-    
+    total = WorksheetFunction.Sum(ws.Range("E1:E36"))
+    If total > ws2.Cells(ws2.Cells(7, "a") + 2, "b") Then 'over current money avoid stupid
+        MsgBox "YOU DON'T HAVE ENOUGH MONEY"
+    Else
+        'Total = WorksheetFunction.Sum(ws.Range("E1:E36"))
+        'ws2.Cells(2, "a") = ws2.Cells(2, "a") - ws2.Cells(3, "a")
+        
+        'change the quantity of order
+        ws2.Cells(7, "a") = ws2.Cells(7, "a") + 1
+        ws2.Cells(ws2.Cells(7, "a").value + 1, "c") = ws2.Cells(7, "a")
+        ws2.Cells(ws2.Cells(7, "a").value + 1, "d") = WorksheetFunction.Sum(ws.Range("E1:E36"))
+        ws2.Cells(ws2.Cells(7, "a").value + 2, "b") = ws2.Cells(ws2.Cells(7, "a").value + 1, "b") - ws2.Cells(ws2.Cells(7, "a").value + 1, "d")
+        
+        SockItemOnShelf
+        UserForm_Initialize
+    End If
 End Sub
 
 Private Sub UserForm_Initialize()
@@ -38,7 +59,10 @@ Private Sub UserForm_Initialize()
     ws2.Columns("D:D").ClearContents
     Me.Controls("quantity").Caption = 0
     Set ws = Worksheets("Finance")
-    Me.Controls("balance").Caption = ws.Cells(2, "a")
+
+    'Me.Controls("balance").Caption = ws.Cells(2, "a")
+    Me.Controls("balance").Caption = ws.Cells(ws.Cells(7, "a") + 2, "b")
+    
 End Sub
 
 Sub VisibleProcess(t As Integer)
@@ -49,7 +73,7 @@ Sub VisibleProcess(t As Integer)
             .Pages(i).Visible = False
         Next
         .Pages(t).Visible = True
-        .Value = t '
+        .value = t '
         .Pages(t).Caption = ""
     End With
         Dim ctl As Control
@@ -59,10 +83,10 @@ Sub VisibleProcess(t As Integer)
             End If
         Next ctl
     For i = 1 To 4
-            Me.Controls("name" & i + t * 4).Caption = ws.Cells(i + 4 * t, 1).Value
-            Me.Controls("price" & i + t * 4).Caption = ws.Cells(i + 4 * t, 2).Value
+            Me.Controls("name" & i + t * 4).Caption = ws.Cells(i + 4 * t, 1).value
+            Me.Controls("price" & i + t * 4).Caption = "$" & ws.Cells(i + 4 * t, 2).value
             'level unlock
-            If ws.Cells(i + 4 * t, 3).Value <> 1 Then
+            If ws.Cells(i + 4 * t, 3).value <> 1 Then
                 Me.Controls("add" & i + t * 4).Visible = False
             End If
     Next i
@@ -72,9 +96,15 @@ Sub VisibleProcess(t As Integer)
 End Sub
 Sub AddtoCart(t As Integer) 'pay attention to the range of products
     Set ws = Worksheets("Goods")
-    ws.Cells(t, 4).Value = ws.Cells(t, 4).Value + 1
-    Total = WorksheetFunction.Sum(ws.Range("D1:D36"))
-    Me.Controls("quantity").Caption = Total
+    ws.Cells(t, 4).value = ws.Cells(t, 4).value + ws.Cells(t, "i").value
+    'Total = 0
+    'For i = 1 To 36
+    'If ws.Cells(i, "d").Value > 0 Then
+    '    Total = Int(ws.Cells(i, "d").Value / ws.Cells(i, "i").Value)
+    total = WorksheetFunction.Sum(ws.Range("D1:D36")) / 8
+    'End If
+    'Next
+    Me.Controls("quantity").Caption = total
 End Sub
 
 Private Sub add1_Click() ' add to cart
