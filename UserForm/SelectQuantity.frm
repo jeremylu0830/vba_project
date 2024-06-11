@@ -13,10 +13,11 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+
 Dim PickedPrice As Integer
 
 
-Private Sub Image1_BeforeDragOver(ByVal Cancel As MSForms.ReturnBoolean, ByVal Data As MSForms.DataObject, ByVal x As Single, ByVal y As Single, ByVal DragState As MSForms.fmDragState, ByVal Effect As MSForms.ReturnEffect, ByVal Shift As Integer)
+Private Sub Image1_BeforeDragOver(ByVal Cancel As MSForms.ReturnBoolean, ByVal Data As MSForms.DataObject, ByVal X As Single, ByVal Y As Single, ByVal DragState As MSForms.fmDragState, ByVal Effect As MSForms.ReturnEffect, ByVal Shift As Integer)
 
 End Sub
 
@@ -29,28 +30,6 @@ Private Sub CommandButton1_Click()
     wsControl.Cells(2, "J") = PickedPrice
     wsControl.Cells(2, "I") = TextBox1.value
     wsControl.Cells(2, "H") = Label1.Caption ' would be better if use index to directly put the name
-    
-    Dim matchRow As Integer
-    Dim tmp As Integer
-    matchRow = WorksheetFunction.Match(Label1.Caption, Sheets("Goods").[A1:A38], 0)
-    tmp = Sheets("Goods").Cells(matchRow, "H").value
-    Sheets("Goods").Cells(matchRow, "H").value = tmp - TextBox1.value
-    If (Sheets("Goods").Cells(matchRow, "H").value = 0) Then
-    'delete pic
-        For Each pic In Sheets("Warehouse").Shapes
-            If pic.Name = Label1.Caption Then
-                pic.Delete
-                Exit For
-            End If
-        Next pic
-        
-        For Each cell In Sheets("HideWarehouse").Range("A1:T20")
-            If cell.value = Label1.Caption Then
-                cell.value = 3
-            End If
-        Next cell
-    End If
-    
     
     SelectQuantity.Hide
     

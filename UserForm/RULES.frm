@@ -14,6 +14,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 
+
 Private Sub ENSURERULES_Click()
     
     RULES.Hide
@@ -26,5 +27,9 @@ Private Sub Label3_Click()
 End Sub
 
 Private Sub Label4_Click()
+
+End Sub
+
+Private Sub MultiPage1_Change()
 
 End Sub

@@ -1,7 +1,7 @@
 VERSION 5.00
 Begin {C62A69F0-16DC-11CE-9E98-00AA00574A4F} SHOP 
    Caption         =   "ORDERPAGE"
-   ClientHeight    =   5929
+   ClientHeight    =   5928
    ClientLeft      =   96
    ClientTop       =   408
    ClientWidth     =   9072
@@ -13,6 +13,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+
 
 Private Sub CompleteButton_Click()
     SHOP.Hide

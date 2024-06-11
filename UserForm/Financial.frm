@@ -1,10 +1,10 @@
 VERSION 5.00
 Begin {C62A69F0-16DC-11CE-9E98-00AA00574A4F} Financial 
-   Caption         =   "Financial"
-   ClientHeight    =   5664
+   Caption         =   "Daily Financial"
+   ClientHeight    =   6024
    ClientLeft      =   108
    ClientTop       =   456
-   ClientWidth     =   10548
+   ClientWidth     =   10176
    OleObjectBlob   =   "Financial.frx":0000
    StartUpPosition =   1  '©ÒÄÝµøµ¡¤¤¥¡
 End
@@ -13,6 +13,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+
 
 
 Private Sub ComboBox1_Change()
@@ -69,9 +70,10 @@ Private Sub CommandButton2_Click()
     
 End Sub
 
-Private Sub ListBox1_Click()
+Private Sub Label1_Click()
 
 End Sub
+
 
 Private Sub UserForm_Initialize()
     Set st = Sheets("sales_records")
